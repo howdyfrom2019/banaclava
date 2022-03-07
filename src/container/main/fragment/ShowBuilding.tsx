@@ -4,7 +4,9 @@ import styled from '@emotion/styled';
 const ShowBuilding = () => {
   return (
     <Wrapper>
-      <span className={'icy-justice-36'}>hello bonjour?! 특수문자는 뭐임</span>
+      <span className={'icy-justice-36'}>
+        hello bonjour?! 왜 커밋 작성자 이상함!
+      </span>
     </Wrapper>
   );
 };
