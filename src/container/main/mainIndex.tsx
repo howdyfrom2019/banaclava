@@ -1,7 +1,8 @@
 import React from 'react';
+import ShowBuilding from './fragment/ShowBuilding';
 
 const MainIndex = () => {
-  return <div>hi</div>;
+  return <ShowBuilding />;
 };
 
 export default MainIndex;
