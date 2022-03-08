@@ -113,3 +113,9 @@ html {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
+
+.icy-justice-16 {
+    font-family: 'Icy Justices', serif;
+    font-size: 16px;
+    color: var(--white);
+}
