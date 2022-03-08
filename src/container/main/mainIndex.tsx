@@ -4,6 +4,7 @@ import ShowBuilding from './fragment/ShowBuilding';
 import Navigation from '../../component/Navigation';
 
 const MainIndex = () => {
+  //something changed.
   return (
     <Wrapper>
       <Navigation />
