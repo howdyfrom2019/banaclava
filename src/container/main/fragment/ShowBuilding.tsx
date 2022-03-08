@@ -51,6 +51,7 @@ const BuildingWrapper = styled.div`
 
   .blur-effect {
     z-index: 2;
+    top: 10%;
   }
 
   .dark-building {
