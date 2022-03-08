@@ -1,38 +1,121 @@
-.App {
-  text-align: center;
+html {
+    font-size: 16px;
+    background: var(--black);
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+:root {
+    /*define gap size*/
+    --gap-64: 64px;
+    --gap-48: 48px;
+    --gap-36: 36px;
+    --gap-24: 24px;
+    --gap-16: 16px;
+    --gap-12: 12px;
+    --gap-8: 8px;
+
+    /*define font size*/
+    --font-64: 64px;
+    --font-48: 48px;
+    --font-36: 36px;
+    --font-24: 24px;
+    --font-16: 16px;
+    --font-12: 12px;
+
+    /*define color theme*/
+    --primary: #8364DB;
+    --bright-purple: #A183F5;
+    --dark-purple: #2B1C56;
+    --mint: #6EFFFF;
+    --navy: #141551;
+    --black: #02030B;
+    --white: #ffffff;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+@font-face {
+    font-family: 'Icy Justices';
+    src: url("./fonts/aAtmospheric.ttf") format('truetype');
+    unicode-range: U+0041-005A, U+0061-007A, U+0030-0039, U+0021-0047;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+@font-face {
+    font-family: 'Icy Justices';
+    src: url("./fonts/비트로 코어 TTF.ttf") format('truetype');
+    unicode-range: U+AC00-D7A3;
 }
 
-.App-link {
-  color: #61dafb;
+
+@font-face {
+    font-family: 'Noto Medium';
+    src: url("./fonts/NotoSansKR-Medium.otf") format('truetype');
+    src: url("./fonts/NotoSansKR-Medium.woff") format('woff');
+    src: url("./fonts/NotoSansKR-Medium.woff2") format('woff2');
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+
+@font-face {
+    font-family: 'Noto Regular';
+    src: url("./fonts/NotoSansKR-Regular.otf") format('truetype');
+    src: url("./fonts/NotoSansKR-Regular.woff") format('woff');
+    src: url("./fonts/NotoSansKR-Regular.woff2") format('woff2');
+}
+
+@font-face {
+    font-family: 'Noto Bold';
+    src: url("./fonts/NotoSansKR-Bold.otf") format('truetype');
+    src: url("./fonts/NotoSansKR-Bold.woff") format('woff');
+    src: url("./fonts/NotoSansKR-Bold.woff2") format('woff2');
+}
+
+.sans-bold-24 {
+    font-family: 'Noto Bold', serif;
+    line-height: 24px;
+    font-size: 24px;
+    color: var(--white);
+}
+
+.sans-medium-16 {
+    font-family: 'Noto Medium', serif;
+    font-size: 16px;
+    color: var(--white);
+}
+
+.sans-medium-14 {
+    font-family: 'Noto Medium', serif;
+    font-size: 14px;
+    color: var(--white);
+}
+
+.sans-regular-12 {
+    font-family: 'Noto Medium', serif;
+    font-size: 12px;
+    color: var(--white);
+}
+
+.icy-justice-48 {
+    font-family: 'Icy Justices', serif;
+    font-size: 48px;
+    text-shadow: 5px 9px 4px #8364DB;
+    color: var(--white);
+}
+
+.icy-justice-36 {
+    font-family: 'Icy Justices', serif;
+    font-size: 36px;
+    background: linear-gradient(90deg, #A183F5 0%, #6DB0FF 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.icy-justice-24 {
+    font-family: 'Icy Justices', serif;
+    font-size: 24px;
+    background: linear-gradient(90deg, #A183F5 0%, #6DB0FF 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.icy-justice-16 {
+    font-family: 'Icy Justices', serif;
+    font-size: 16px;
+    color: var(--white);
 }
