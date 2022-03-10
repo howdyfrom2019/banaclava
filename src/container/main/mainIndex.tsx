@@ -2,13 +2,14 @@ import React from 'react';
 import styled from '@emotion/styled';
 import ShowBuilding from './fragment/ShowBuilding';
 import Navigation from '../../component/Navigation';
+import Article from './fragment/Article';
 
 const MainIndex = () => {
-  //something changed.
   return (
     <Wrapper>
       <Navigation />
       <ShowBuilding />
+      <Article />
     </Wrapper>
   );
 };

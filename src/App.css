@@ -21,6 +21,9 @@ html {
     --font-16: 16px;
     --font-12: 12px;
 
+    /*define widths*/
+    --desktop-content: 1196px;
+
     /*define color theme*/
     --primary: #8364DB;
     --bright-purple: #A183F5;
