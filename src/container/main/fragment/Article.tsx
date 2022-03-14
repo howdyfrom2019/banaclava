@@ -1,8 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import NetflixDivider from '../../../assets/divider/netflix-backgorund.png';
+import BrowserDndTab from '../../../component/BrowserDndTab';
+
+interface EpisodeType {
+  isSelected: boolean;
+}
+
+interface BrowserTab {
+  cursor: number;
+  total: number;
+}
 
 const Article = () => {
+  const [selectedIndex, setSelectedIndex] = useState<number>(0);
+
+  const changeIndex = (index: number) => {
+    setSelectedIndex(index);
+  };
+
   return (
     <Wrapper>
       <img src={NetflixDivider} alt={'divider'} />
@@ -10,14 +26,54 @@ const Article = () => {
       <NetflixContainer>
         <NetflixEpisode>
           <span className={'icy-justice-16'}>story</span>
-          <EpisodeItem>
+          <EpisodeItem
+            isSelected={selectedIndex === 0}
+            onClick={() => changeIndex(0)}
+          >
             <span className={'icy-justice-16'}>1</span>
             <span className={'sans-medium-16'}>
               NFT 유니버스에 일어난 지상 최악의 사건
             </span>
           </EpisodeItem>
+          <EpisodeItem
+            isSelected={selectedIndex === 1}
+            onClick={() => changeIndex(1)}
+          >
+            <span className={'icy-justice-16'}>2</span>
+            <span className={'sans-medium-16'}>
+              밝혀진 진실... 이 사건의 주모자는 누구?
+            </span>
+          </EpisodeItem>
+          <EpisodeItem
+            isSelected={selectedIndex === 2}
+            onClick={() => changeIndex(2)}
+          >
+            <span className={'icy-justice-16'}>3</span>
+            <span className={'sans-medium-16'}>
+              드디어 드러나다! Icy Justices
+            </span>
+          </EpisodeItem>
+          <EpisodeItem
+            isSelected={selectedIndex === 3}
+            onClick={() => changeIndex(3)}
+          >
+            <span className={'icy-justice-16'}>4</span>
+            <span className={'sans-medium-16'}>
+              Icy Justices 열풍! 어디까지 흘러가나..?
+            </span>
+          </EpisodeItem>
         </NetflixEpisode>
-        <NetflixEpisode />
+        <NetflixEpisode
+          style={{
+            border: '1px solid var(--white)',
+            padding: 0,
+            width: '100%',
+          }}
+        >
+          <NewsBrowserWrapper>
+            <BrowserDndTab />
+          </NewsBrowserWrapper>
+        </NetflixEpisode>
       </NetflixContainer>
     </Wrapper>
   );
@@ -29,6 +85,7 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   padding-top: var(--gap-64);
+  z-index: 2;
 
   .background {
     height: 963px;
@@ -61,15 +118,23 @@ const NetflixEpisode = styled.div`
   min-width: 40%;
   min-height: 482px;
   background: var(--black);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
 `;
 
-const EpisodeItem = styled.div`
+const EpisodeItem = styled.div<EpisodeType>`
   display: flex;
   gap: var(--gap-64);
   padding: 30px 40px;
   align-items: center;
-  background: #141414;
+  background: ${(props) => (props.isSelected ? '#141414' : 'transparent')};
+  filter: ${(props) => (props.isSelected ? 'opacity(1)' : 'opacity(0.4)')};
+  transition: all 600ms cubic-bezier(0.99, 0.08, 0.17, 1);
   cursor: pointer;
+`;
+
+const NewsBrowserWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
 `;
 
 export default Article;

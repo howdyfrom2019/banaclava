@@ -94,6 +94,15 @@ html {
     color: var(--white);
 }
 
+.sans-regular-8 {
+    font-family: 'Noto Regular', serif;
+    font-size: 8px;
+    color: var(--white);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
 .icy-justice-48 {
     font-family: 'Icy Justices', serif;
     font-size: 48px;
