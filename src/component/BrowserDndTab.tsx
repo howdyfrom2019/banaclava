@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useDrag } from 'react-dnd';
 import styled from '@emotion/styled';
 import { ReactComponent as Favicon } from '../assets/icon/news_icon.svg';
@@ -7,61 +7,103 @@ import { ReactComponent as Close } from '../assets/icon/icon_close.svg';
 export const BROWSER_DND_TYPE = 'BROWSER_TAB';
 
 interface DndType {
-  text?: string;
-  callback?: (index: number) => void;
+  indexArray?: number[];
+  defaultIndex?: number;
+  callback?: (index: number, indexList: number[]) => void;
 }
 
-const BrowserDndTab: React.FC<DndType> = ({ text, callback }) => {
+interface TabType {
+  index: number;
+  text: string;
+}
+
+const BrowserDndTab: React.FC<DndType> = ({
+  indexArray = [0],
+  defaultIndex = 0,
+  callback,
+}) => {
   const [selectedIndex, setSelectedIndex] = useState<number>(0);
-  const [{ isDragging }, drag] = useDrag(() => ({
-    type: BROWSER_DND_TYPE,
-    collect: (monitor) => ({
-      isDragging: monitor.isDragging(),
-    }),
-  }));
+  const indexList = useRef<number[]>([]);
+  const [render, setRender] = useState<boolean>(false);
+  const reRender = () => setRender((prev) => !prev);
+
+  const BrowserTab: React.FC<TabType> = ({ index, text }) => {
+    const [{ isDragging }, drag] = useDrag(() => ({
+      type: BROWSER_DND_TYPE,
+      collect: (monitor) => ({
+        isDragging: monitor.isDragging(),
+      }),
+    }));
+
+    const deleteIndex = () => {
+      const result: number[] = [];
+      indexList.current.forEach((item) => {
+        if (item !== index) result.push(item);
+      });
+      if (selectedIndex === index) setSelectedIndex(index - 1);
+      indexList.current = result;
+      reRender();
+    };
+
+    return (
+      <Tab
+        ref={drag}
+        className={
+          selectedIndex === index
+            ? 'tab'
+            : index === indexList.current[0]
+            ? 'false1'
+            : index === indexList.current[indexList.current.length - 1]
+            ? 'false3'
+            : 'false'
+        }
+        isSelected={selectedIndex === index}
+        isShow={indexList.current.includes(index)}
+        onClick={(e) => {
+          e.stopPropagation();
+          changeIndex(index);
+        }}
+      >
+        <Favicon />
+        <span className={'sans-regular-8'}>{text}</span>
+        {indexList.current.length > 1 && (
+          <Close
+            className={'close'}
+            onClick={(e) => {
+              e.stopPropagation();
+              deleteIndex();
+            }}
+          />
+        )}
+      </Tab>
+    );
+  };
 
   const changeIndex = (index: number) => {
     setSelectedIndex(index);
   };
 
+  console.log(selectedIndex);
+
+  useEffect(() => {
+    callback && callback(selectedIndex, indexList.current);
+  }, [selectedIndex]);
+
+  useEffect(() => {
+    setSelectedIndex(defaultIndex);
+    if (indexArray) {
+      indexList.current = indexArray;
+      reRender();
+    }
+  }, [defaultIndex, indexArray]);
   return (
     <NewsBrowserTabWrapper>
-      <Tab
-        ref={drag}
-        className={selectedIndex === 0 ? 'tab' : 'false'}
-        isSelected={selectedIndex === 0}
-        onClick={() => changeIndex(0)}
-      >
-        <Favicon />
-        <span className={'sans-regular-8'}>
-          에피소드 1편입니다. 내용이 상당히 길죠?
-        </span>
-        <Close className={'close'} />
-      </Tab>
-      <Tab
-        ref={drag}
-        className={selectedIndex === 1 ? 'tab' : 'false'}
-        isSelected={selectedIndex === 1}
-        onClick={() => changeIndex(1)}
-      >
-        <Favicon />
-        <span className={'sans-regular-8'}>
-          에피소드 2편입니다. 내용이 상당히 길죠?
-        </span>
-        <Close className={'close'} />
-      </Tab>
-      <Tab
-        ref={drag}
-        className={selectedIndex === 2 ? 'tab' : 'false'}
-        isSelected={selectedIndex === 2}
-        onClick={() => changeIndex(2)}
-      >
-        <Favicon />
-        <span className={'sans-regular-8'}>
-          에피소드 3편입니다. 내용이 상당히 길죠?
-        </span>
-        <Close className={'close'} />
-      </Tab>
+      <div className={'tab-wrapper'}>
+        <BrowserTab index={0} text={'NFT 유니버스에 일어난 지상 최악의 사건'} />
+        <BrowserTab index={1} text={'밝혀진 진실... 이사건의 주모자는 누구?'} />
+        <BrowserTab index={2} text={'드디어 드러나다! ICY JUSTICES'} />
+        <BrowserTab index={3} text={'ICY JUSTICES 열풍! 어디까지 흘러가나'} />
+      </div>
       <span className={'line'} />
     </NewsBrowserTabWrapper>
   );
@@ -73,6 +115,12 @@ const NewsBrowserTabWrapper = styled.div`
   transition: all 600ms cubic-bezier(0.99, 0.08, 0.17, 1);
   background: var(--dark-purple);
 
+  .tab-wrapper {
+    display: flex;
+    transition: all 600ms cubic-bezier(0.99, 0.08, 0.17, 1);
+    max-width: 80%;
+  }
+
   & > span.line {
     position: absolute;
     bottom: 0;
@@ -83,7 +131,7 @@ const NewsBrowserTabWrapper = styled.div`
     z-index: 4;
   }
 
-  .tab:first-child {
+  .tab:first-of-type {
     margin-left: var(--gap-12);
   }
 
@@ -122,18 +170,19 @@ const NewsBrowserTabWrapper = styled.div`
     color: rgba(255, 255, 255, 0.4);
   }
 
-  .false:first-child {
-    content: '';
+  .false1:first-of-type {
     margin-left: var(--gap-12);
   }
 `;
 
-const Tab = styled.div<{ isSelected?: boolean }>`
-  max-width: 120px;
+const Tab = styled.div<{ isSelected?: boolean; isShow?: boolean }>`
+  max-width: 160px;
+  flex: 1;
+  min-width: 80px;
   position: relative;
   height: 28px;
   padding: 0 var(--gap-8);
-  display: flex;
+  display: ${(props) => (props.isShow ? 'flex' : 'none')};
   gap: var(--gap-12);
   align-items: center;
   background: ${(props) => (props.isSelected ? 'var(--primary)' : '#502BB8')};
@@ -143,8 +192,12 @@ const Tab = styled.div<{ isSelected?: boolean }>`
   cursor: default;
   user-select: none;
 
+  ::-webkit-scrollbar {
+    display: none;
+  }
+
   .sans-regular-8 {
-    max-width: 70%;
+    max-width: 65%;
   }
 
   .close {

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import styled from '@emotion/styled';
 import NetflixDivider from '../../../assets/divider/netflix-backgorund.png';
 import BrowserDndTab from '../../../component/BrowserDndTab';
@@ -7,16 +7,19 @@ interface EpisodeType {
   isSelected: boolean;
 }
 
-interface BrowserTab {
-  cursor: number;
-  total: number;
-}
-
 const Article = () => {
   const [selectedIndex, setSelectedIndex] = useState<number>(0);
+  const selectedIndexList = useRef<number[]>([0]);
+  const [render, setRender] = useState<boolean>(false);
+  const reRender = () => setRender((prev) => !prev);
+  //TODO: Extract IndexList from NetflixEpisode Container and join with newsBrowser. adjust DND effect.
 
   const changeIndex = (index: number) => {
     setSelectedIndex(index);
+    if (!selectedIndexList.current.includes(index)) {
+      selectedIndexList.current.push(index);
+      reRender();
+    }
   };
 
   return (
@@ -28,7 +31,10 @@ const Article = () => {
           <span className={'icy-justice-16'}>story</span>
           <EpisodeItem
             isSelected={selectedIndex === 0}
-            onClick={() => changeIndex(0)}
+            onClick={(e) => {
+              e.stopPropagation();
+              changeIndex(0);
+            }}
           >
             <span className={'icy-justice-16'}>1</span>
             <span className={'sans-medium-16'}>
@@ -37,7 +43,10 @@ const Article = () => {
           </EpisodeItem>
           <EpisodeItem
             isSelected={selectedIndex === 1}
-            onClick={() => changeIndex(1)}
+            onClick={(e) => {
+              e.stopPropagation();
+              changeIndex(1);
+            }}
           >
             <span className={'icy-justice-16'}>2</span>
             <span className={'sans-medium-16'}>
@@ -46,7 +55,10 @@ const Article = () => {
           </EpisodeItem>
           <EpisodeItem
             isSelected={selectedIndex === 2}
-            onClick={() => changeIndex(2)}
+            onClick={(e) => {
+              e.stopPropagation();
+              changeIndex(2);
+            }}
           >
             <span className={'icy-justice-16'}>3</span>
             <span className={'sans-medium-16'}>
@@ -55,7 +67,10 @@ const Article = () => {
           </EpisodeItem>
           <EpisodeItem
             isSelected={selectedIndex === 3}
-            onClick={() => changeIndex(3)}
+            onClick={(e) => {
+              e.stopPropagation();
+              changeIndex(3);
+            }}
           >
             <span className={'icy-justice-16'}>4</span>
             <span className={'sans-medium-16'}>
@@ -71,7 +86,15 @@ const Article = () => {
           }}
         >
           <NewsBrowserWrapper>
-            <BrowserDndTab />
+            <BrowserDndTab
+              indexArray={selectedIndexList.current}
+              defaultIndex={selectedIndex}
+              callback={(index, indexList) => {
+                setSelectedIndex(index);
+                selectedIndexList.current = indexList;
+                reRender();
+              }}
+            />
           </NewsBrowserWrapper>
         </NetflixEpisode>
       </NetflixContainer>
