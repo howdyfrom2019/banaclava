@@ -2,6 +2,7 @@ import React, { useRef, useState } from 'react';
 import styled from '@emotion/styled';
 import NetflixDivider from '../../../assets/divider/netflix-backgorund.png';
 import BrowserDndTab from '../../../component/BrowserDndTab';
+import NewsBrowser from '../../../component/NewsBrowser';
 
 interface EpisodeType {
   isSelected: boolean;
@@ -95,6 +96,7 @@ const Article = () => {
                 reRender();
               }}
             />
+            <NewsBrowser index={selectedIndex} />
           </NewsBrowserWrapper>
         </NetflixEpisode>
       </NetflixContainer>
@@ -111,6 +113,7 @@ const Wrapper = styled.div`
   z-index: 2;
 
   .background {
+    width: 100%;
     height: 963px;
     background: linear-gradient(
       180deg,
@@ -131,6 +134,7 @@ const NetflixContainer = styled.div`
   justify-content: space-between;
   gap: var(--gap-24);
   z-index: 1;
+  max-height: 580px;
 `;
 
 const NetflixEpisode = styled.div`
