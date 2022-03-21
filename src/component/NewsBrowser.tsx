@@ -18,6 +18,8 @@ interface NewsContentType {
 }
 
 const NewsBrowser: React.FC<NewsType> = ({ index }) => {
+  const element = useRef<HTMLDivElement>(null);
+
   const NewsTitle: React.FC<NewsUpperType> = ({ h1, dateString, written }) => {
     return (
       <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
@@ -41,8 +43,13 @@ const NewsBrowser: React.FC<NewsType> = ({ index }) => {
     );
   };
 
+  useEffect(() => {
+    if (!element.current) return;
+    element.current.scroll(0, 0);
+  }, [index]);
+
   return (
-    <NewsWrapper>
+    <NewsWrapper ref={element}>
       {index === 0 && (
         <>
           <NewsTitle
