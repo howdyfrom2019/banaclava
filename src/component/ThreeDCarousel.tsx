@@ -26,12 +26,24 @@ const ThreeDCarousel: React.FC<ThreeDType> = ({
   itemProps,
 }) => {
   const [radius, setRadius] = useState<number>(0);
+  const [timer, setTimer] = useState<number>(0);
   const [itemCount, setItemCount] = useState<number>(1);
   const [currentIndex, setCurrentIndex] = useState<number>(0);
 
+  const autoPlay = useRef<boolean>(true);
+
   const radiusCalculator = (angleNum: number, width: number) => {
     const itemAngle: number = Math.PI / angleNum;
-    return Math.round(width / (2 * Math.tan(itemAngle)));
+    return Math.round((width / (2 * Math.tan(itemAngle))) * 1.1);
+  };
+
+  const sliderController = (right: boolean, counter?: boolean) => {
+    if (counter) {
+      if (!autoPlay.current) {
+        return;
+      }
+    }
+    setCurrentIndex((prev) => (right ? prev + 1 : prev - 1));
   };
 
   useEffect(() => {
@@ -42,15 +54,15 @@ const ThreeDCarousel: React.FC<ThreeDType> = ({
   useEffect(() => {
     if (itemCount === 0) return;
     setTimeout(() => {
-      console.log('timer started: ', currentIndex, itemCount);
-      // if (currentIndex >= itemCount) {
-      //   setCurrentIndex(0);
-      // } else {
-      //   setCurrentIndex((prev) => prev + 1);
-      // }
-      setCurrentIndex((prev) => prev + 1);
+      sliderController(true, true);
     }, 4000);
-  }, [currentIndex]);
+  }, [timer]);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setTimer((prev) => prev + 1);
+    }, 4000);
+  }, [timer]);
 
   return (
     <Wrapper style={style}>
@@ -65,6 +77,19 @@ const ThreeDCarousel: React.FC<ThreeDType> = ({
             radius={radius}
             className={`carousel-item`}
             key={i}
+            onMouseEnter={() => {
+              autoPlay.current = false;
+            }}
+            onMouseLeave={() => {
+              autoPlay.current = true;
+            }}
+            onClick={() => {
+              if ((i + currentIndex) % itemCount >= 3) {
+                sliderController(true);
+              } else {
+                sliderController(false);
+              }
+            }}
           >
             {element}
           </CarouselItem>
