@@ -2,6 +2,7 @@ import React, { useRef, useState } from 'react';
 import styled from '@emotion/styled';
 import NetflixDivider from '../../../assets/divider/netflix-backgorund.png';
 import BrowserDndTab from '../../../component/BrowserDndTab';
+import NewsBrowser from '../../../component/NewsBrowser';
 
 interface EpisodeType {
   isSelected: boolean;
@@ -62,7 +63,7 @@ const Article = () => {
           >
             <span className={'icy-justice-16'}>3</span>
             <span className={'sans-medium-16'}>
-              드디어 드러나다! Icy Justices
+              정체를 드러낸 의적단, ICY JUSTICES!
             </span>
           </EpisodeItem>
           <EpisodeItem
@@ -74,7 +75,7 @@ const Article = () => {
           >
             <span className={'icy-justice-16'}>4</span>
             <span className={'sans-medium-16'}>
-              Icy Justices 열풍! 어디까지 흘러가나..?
+              신규단원 공개모집하는 ICY JUSTICES!
             </span>
           </EpisodeItem>
         </NetflixEpisode>
@@ -95,6 +96,7 @@ const Article = () => {
                 reRender();
               }}
             />
+            <NewsBrowser index={selectedIndex} />
           </NewsBrowserWrapper>
         </NetflixEpisode>
       </NetflixContainer>
@@ -105,25 +107,23 @@ const Article = () => {
 const Wrapper = styled.div`
   position: relative;
   width: 100%;
+  height: 900px;
+  min-height: 964px;
   display: flex;
   flex-direction: column;
   padding-top: var(--gap-64);
   z-index: 2;
 
   .background {
-    height: 963px;
-    background: linear-gradient(
-      180deg,
-      #5a47a7 0%,
-      #56439f 79.48%,
-      #000000 100%
-    );
+    width: 100%;
+    height: 100%;
+    background: #5a47a7;
   }
 `;
 
 const NetflixContainer = styled.div`
   position: absolute;
-  top: calc(10% + var(--gap-64));
+  top: calc(20% + var(--gap-64));
   left: 50%;
   transform: translateX(-50%);
   width: var(--desktop-content);
@@ -131,6 +131,7 @@ const NetflixContainer = styled.div`
   justify-content: space-between;
   gap: var(--gap-24);
   z-index: 1;
+  max-height: 580px;
 `;
 
 const NetflixEpisode = styled.div`

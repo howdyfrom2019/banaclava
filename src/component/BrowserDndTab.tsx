@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { useDrag } from 'react-dnd';
+import { useDrag, useDrop } from 'react-dnd';
 import styled from '@emotion/styled';
 import { ReactComponent as Favicon } from '../assets/icon/news_icon.svg';
 import { ReactComponent as Close } from '../assets/icon/icon_close.svg';
@@ -25,6 +25,18 @@ const BrowserDndTab: React.FC<DndType> = ({
   const [selectedIndex, setSelectedIndex] = useState<number>(0);
   const indexList = useRef<number[]>([]);
   const [render, setRender] = useState<boolean>(false);
+  const [{ isOver }, drop] = useDrop(
+    () => ({
+      accept: BROWSER_DND_TYPE,
+      drop: () => {
+        console.log('drop');
+      },
+      collect: (monitor) => ({
+        isOver: monitor.isOver(),
+      }),
+    }),
+    [],
+  );
   const reRender = () => setRender((prev) => !prev);
 
   const BrowserTab: React.FC<TabType> = ({ index, text }) => {
@@ -32,6 +44,7 @@ const BrowserDndTab: React.FC<DndType> = ({
       type: BROWSER_DND_TYPE,
       collect: (monitor) => ({
         isDragging: monitor.isDragging(),
+        opacity: monitor.isDragging() ? 0.5 : 1,
       }),
     }));
 
@@ -40,7 +53,7 @@ const BrowserDndTab: React.FC<DndType> = ({
       indexList.current.forEach((item) => {
         if (item !== index) result.push(item);
       });
-      if (selectedIndex === index) setSelectedIndex(index - 1);
+      if (selectedIndex === index) setSelectedIndex(index);
       indexList.current = result;
       reRender();
     };
@@ -83,10 +96,10 @@ const BrowserDndTab: React.FC<DndType> = ({
     setSelectedIndex(index);
   };
 
-  console.log(selectedIndex);
-
   useEffect(() => {
-    callback && callback(selectedIndex, indexList.current);
+    callback &&
+      indexList.current.length > 0 &&
+      callback(selectedIndex, indexList.current);
   }, [selectedIndex]);
 
   useEffect(() => {
@@ -98,11 +111,11 @@ const BrowserDndTab: React.FC<DndType> = ({
   }, [defaultIndex, indexArray]);
   return (
     <NewsBrowserTabWrapper>
-      <div className={'tab-wrapper'}>
+      <div className={'tab-wrapper'} ref={drop}>
         <BrowserTab index={0} text={'NFT 유니버스에 일어난 지상 최악의 사건'} />
         <BrowserTab index={1} text={'밝혀진 진실... 이사건의 주모자는 누구?'} />
-        <BrowserTab index={2} text={'드디어 드러나다! ICY JUSTICES'} />
-        <BrowserTab index={3} text={'ICY JUSTICES 열풍! 어디까지 흘러가나'} />
+        <BrowserTab index={2} text={'정체를 드러낸 의적단, ICY JUSTICES!'} />
+        <BrowserTab index={3} text={'신규단원 공개모집하는 ICY JUSTICES!'} />
       </div>
       <span className={'line'} />
     </NewsBrowserTabWrapper>
