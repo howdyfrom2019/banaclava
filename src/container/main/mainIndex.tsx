@@ -4,6 +4,7 @@ import ShowBuilding from './fragment/ShowBuilding';
 import Navigation from '../../component/Navigation';
 import Article from './fragment/Article';
 import Collection from './fragment/Collection';
+import InfiniteBand from '../../component/InfiniteBand';
 
 const MainIndex = () => {
   return (
@@ -12,6 +13,7 @@ const MainIndex = () => {
       <ShowBuilding />
       <Article />
       <Collection />
+      <InfiniteBand />
     </Wrapper>
   );
 };

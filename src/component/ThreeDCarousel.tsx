@@ -75,7 +75,9 @@ const ThreeDCarousel: React.FC<ThreeDType> = ({
           <CarouselItem
             angleY={((i + currentIndex) * -360) / itemCount}
             radius={radius}
-            className={`carousel-item`}
+            className={`carousel-item ${
+              (i + currentIndex) % itemCount === 0 ? 'center' : 'false'
+            }`}
             key={i}
             onMouseEnter={() => {
               autoPlay.current = false;
@@ -86,7 +88,7 @@ const ThreeDCarousel: React.FC<ThreeDType> = ({
             onClick={() => {
               if ((i + currentIndex) % itemCount >= 3) {
                 sliderController(true);
-              } else {
+              } else if ((i + currentIndex) % itemCount > 0) {
                 sliderController(false);
               }
             }}
@@ -118,6 +120,11 @@ const ThreeDCarouselContainer = styled.div<ItemProps>`
     width: ${(props) => `${props.width}px`};
     height: ${(props) => (props.height ? `${props.height}px` : 'auto')};
     transition: all 1s;
+    border: 1px solid var(--white);
+  }
+
+  .center {
+    filter: opacity(1) !important;
   }
 `;
 
