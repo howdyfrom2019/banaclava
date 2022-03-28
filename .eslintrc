@@ -1,7 +1,8 @@
 {
   "parser": "@typescript-eslint/parser",
   "extends": [
-    "react-app", "prettier",
+    "react-app",
+    "prettier",
     "plugin:@typescript-eslint/recommended",
     "plugin:prettier/recommended"
   ],
@@ -25,17 +26,12 @@
       }
     },
     "rules": {
-      "prettier/prettier": ["error", { "endOfLine": "auto" }],
-      "react/jsx-filename-extension": [
-        "warn",
+      "prettier/prettier": [
+        "error",
         {
-          "extensions": [
-            ".js",
-            ".jsx"
-          ]
+          "endOfLine": "auto"
         }
-      ],
-      "@typescript-eslint/explicit-module-boundary-types": "off"
+      ]
     }
   }
 }
