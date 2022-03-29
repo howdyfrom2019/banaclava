@@ -5,6 +5,7 @@ import Navigation from '../../component/Navigation';
 import Article from './fragment/Article';
 import Collection from './fragment/Collection';
 import InfiniteBand from '../../component/InfiniteBand';
+import RoadMap from '../../component/RoadMap';
 
 const MainIndex = () => {
   return (
@@ -14,6 +15,7 @@ const MainIndex = () => {
       <Article />
       <Collection />
       <InfiniteBand />
+      <RoadMap />
     </Wrapper>
   );
 };

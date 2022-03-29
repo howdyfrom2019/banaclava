@@ -1,7 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
 import styled from '@emotion/styled';
 
-import BlueRose from '../assets/blue_rose.png';
+import episode1 from '../assets/image/episode1.png';
+import episode2 from '../assets/image/episode2.png';
+import episode3 from '../assets/image/episode3.png';
+import episode4 from '../assets/image/episode4.png';
 
 interface NewsType {
   index: number;
@@ -57,7 +60,7 @@ const NewsBrowser: React.FC<NewsType> = ({ index }) => {
             dateString={'Mar 03, 2022 AM 9:17 /Updated Mar 03.2022 AM 10:24'}
             written={'By J.H Edward'}
           />
-          <img src={BlueRose} alt={'blue_rose'} className={'thumbnail'} />
+          <img src={episode1} alt={'blue_rose'} className={'thumbnail'} />
           <NewsContent
             content={
               '사라진 재벌들의 NFT, 텅 비어버린 지갑, 그리고 남은 파란 장미 <br /><br />' +
@@ -74,7 +77,7 @@ const NewsBrowser: React.FC<NewsType> = ({ index }) => {
             dateString={'Mar 08, 2022 AM 11:10 /Updated Mar 08.2022 PM 01:03'}
             written={'By J.H Edward'}
           />
-          <img src={BlueRose} alt={'blue_rose'} className={'thumbnail'} />
+          <img src={episode2} alt={'blue_rose'} className={'thumbnail'} />
           <NewsContent
             content={
               'NFT Scene에 의적이 등장했다. <br /><br />' +
@@ -93,7 +96,7 @@ const NewsBrowser: React.FC<NewsType> = ({ index }) => {
             dateString={'Mar 16, 2022 PM 10:23 /Updated Mar 17.2022 AM 09:02'}
             written={'By J.H Edward'}
           />
-          <img src={BlueRose} alt={'blue_rose'} className={'thumbnail'} />
+          <img src={episode3} alt={'blue_rose'} className={'thumbnail'} />
           <NewsContent
             content={
               '트위터가 시끌시끌하다.<br /><br />' +
@@ -112,7 +115,7 @@ const NewsBrowser: React.FC<NewsType> = ({ index }) => {
             dateString={'Mar 31, 2022 PM 10:20 /Updated Apr 01.2022 AM 09:01'}
             written={'By J.H Edward'}
           />
-          <img src={BlueRose} alt={'blue_rose'} className={'thumbnail'} />
+          <img src={episode4} alt={'blue_rose'} className={'thumbnail'} />
           <NewsContent
             content={
               '순식간에 인기를 끌어낸 ICY JUSTICES<br /><br />' +
