@@ -43,15 +43,18 @@ const Wrapper = styled.div`
   }
 
   .animation2 {
+    display: none;
     animation-delay: 15s;
   }
 
   @keyframes scrolling-left {
     0% {
+      display: inline-block;
       transform: translateX(100%);
       -webkit-transform: translateX(100%);
     }
     100% {
+      display: inline-block;
       transform: translateX(-100%);
       -webkit-transform: translateX(-100%);
     }
