@@ -77,6 +77,7 @@ const Wrapper = styled.div`
   height: 606px;
   background: linear-gradient(180deg, #5a47a7 0%, #56439f 79.48%, #000000 100%);
   text-align: center;
+  z-index: 5;
 `;
 
 export default Collection;

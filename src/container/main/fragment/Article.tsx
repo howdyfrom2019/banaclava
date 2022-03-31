@@ -112,7 +112,7 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   padding-top: var(--gap-64);
-  z-index: 2;
+  z-index: 6;
 
   .background {
     width: 100%;
@@ -130,7 +130,7 @@ const NetflixContainer = styled.div`
   display: flex;
   justify-content: space-between;
   gap: var(--gap-24);
-  z-index: 1;
+  z-index: 5;
   max-height: 580px;
 `;
 

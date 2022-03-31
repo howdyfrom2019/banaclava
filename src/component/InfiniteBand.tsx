@@ -30,6 +30,7 @@ const Wrapper = styled.div`
   border-top: 1px solid var(--white);
   border-bottom: 1px solid var(--white);
   overflow: hidden;
+  z-index: 5;
 
   .animation1 {
     height: fit-content;
