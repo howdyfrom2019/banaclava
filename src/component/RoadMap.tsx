@@ -134,6 +134,8 @@ const Wrapper = styled.div`
   align-items: center;
   height: 580px;
   transition: all 600ms cubic-bezier(0.99, 0.08, 0.17, 1);
+  background: var(--black);
+  z-index: 5;
 `;
 
 const RoadMapContainer = styled.div`
@@ -161,6 +163,7 @@ const BarContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  background: var(--black);
 `;
 
 const Bar = styled.span<BarProps>`
