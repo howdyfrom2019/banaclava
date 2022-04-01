@@ -21,7 +21,7 @@ const Wrapper = styled.div`
   position: absolute;
   left: 50%;
   transform: translate(-50%);
-  max-width: 1109px;
+  width: var(--desktop-content);
   display: flex;
   justify-content: space-between;
   align-items: center;

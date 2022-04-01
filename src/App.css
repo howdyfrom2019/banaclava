@@ -49,53 +49,53 @@ html {
 
 @font-face {
     font-family: 'Noto Medium';
-    src: url("./fonts/NotoSansKR-Medium.otf") format('truetype');
-    src: url("./fonts/NotoSansKR-Medium.woff") format('woff');
-    src: url("./fonts/NotoSansKR-Medium.woff2") format('woff2');
+    src: url("./fonts/NotoSansKR-Medium.otf") format('opentype'),
+    url("./fonts/NotoSansKR-Medium.woff") format('woff'),
+    url("./fonts/NotoSansKR-Medium.woff2") format('woff2');
 }
 
 
 @font-face {
     font-family: 'Noto Regular';
-    src: url("./fonts/NotoSansKR-Regular.otf") format('truetype');
-    src: url("./fonts/NotoSansKR-Regular.woff") format('woff');
-    src: url("./fonts/NotoSansKR-Regular.woff2") format('woff2');
+    src: url("./fonts/NotoSansKR-Regular.otf") format('opentype'),
+    url("./fonts/NotoSansKR-Regular.woff") format('woff'),
+    url("./fonts/NotoSansKR-Regular.woff2") format('woff2');
 }
 
 @font-face {
     font-family: 'Noto Bold';
-    src: url("./fonts/NotoSansKR-Bold.otf") format('truetype');
-    src: url("./fonts/NotoSansKR-Bold.woff") format('woff');
-    src: url("./fonts/NotoSansKR-Bold.woff2") format('woff2');
+    src: url("./fonts/NotoSansKR-Bold.otf") format('opentype'),
+    url("./fonts/NotoSansKR-Bold.woff") format('woff'),
+    url("./fonts/NotoSansKR-Bold.woff2") format('woff2');
 }
 
 .sans-bold-24 {
-    font-family: 'Noto Bold', serif;
+    font-family: 'Noto Bold';
     line-height: 24px;
     font-size: 24px;
     color: var(--white);
 }
 
 .sans-medium-16 {
-    font-family: 'Noto Medium', serif;
+    font-family: 'Noto Medium';
     font-size: 16px;
     color: var(--white);
 }
 
 .sans-medium-14 {
-    font-family: 'Noto Medium', serif;
+    font-family: 'Noto Medium';
     font-size: 14px;
     color: var(--white);
 }
 
 .sans-regular-12 {
-    font-family: 'Noto Medium', serif;
+    font-family: 'Noto Medium';
     font-size: 12px;
     color: var(--white);
 }
 
 .sans-regular-8 {
-    font-family: 'Noto Regular', serif;
+    font-family: 'Noto Regular';
     font-size: 8px;
     color: var(--white);
     overflow: hidden;

@@ -74,9 +74,10 @@ const Wrapper = styled.div`
   flex-direction: column;
   gap: var(--gap-64);
   width: 100%;
-  height: 963px;
+  height: 606px;
   background: linear-gradient(180deg, #5a47a7 0%, #56439f 79.48%, #000000 100%);
   text-align: center;
+  z-index: 5;
 `;
 
 export default Collection;
