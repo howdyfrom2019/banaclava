@@ -1,19 +1,77 @@
-import React from 'react';
+import React, { RefObject, useEffect, useRef } from 'react';
 import styled from '@emotion/styled';
 import { ReactComponent as BlurEffect } from '../../../assets/header/blur_effect.svg';
 import { ReactComponent as DarkBuilding } from '../../../assets/header/dark buildeing.svg';
+import { ReactComponent as Ground } from '../../../assets/header/ground.svg';
 import { ReactComponent as Logo } from '../../../assets/logo.svg';
 import Background from '../../../assets/header/background.png';
 import BrightBuilding from '../../../assets/header/bright building.png';
 
-const ShowBuilding = () => {
+export interface ReferenceProp {
+  callbackHeight: (height: number) => void;
+}
+
+const ShowBuilding: React.FC<ReferenceProp> = ({ callbackHeight }) => {
+  const darkBuildingRef = useRef<SVGSVGElement>(null);
+  const brightBuildingRef = useRef<HTMLImageElement>(null);
+  const starsRef = useRef<HTMLImageElement>(null);
+  const groundRef = useRef<SVGSVGElement>(null);
+
+  const WrapperRef = useRef<HTMLDivElement>(null);
+
+  const scrollHandler = () => {
+    if (
+      !darkBuildingRef.current ||
+      !brightBuildingRef.current ||
+      !starsRef.current ||
+      !groundRef.current
+    )
+      return;
+    const scrollTop: number = document.documentElement.scrollTop;
+    groundRef.current.style.transform = `translate3d(-50%, ${
+      -scrollTop * 0.3
+    }px, 0px)`;
+    darkBuildingRef.current.style.transform = `translate3d(-50%, ${
+      -scrollTop * 0.3
+    }px, 0px)`;
+    brightBuildingRef.current.style.transform = `translate3d(-50%, ${
+      -scrollTop * 0.12
+    }px, 0px)`;
+    starsRef.current.style.transform = `translate3d(-50%, ${
+      -scrollTop * 0.01
+    }px, 0px)`;
+  };
+
+  useEffect(() => {
+    window.addEventListener('scroll', scrollHandler);
+    return () => {
+      window.removeEventListener('scroll', scrollHandler);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!WrapperRef.current) return;
+    callbackHeight(WrapperRef.current.clientHeight);
+  }, []);
+
   return (
-    <Wrapper>
+    <Wrapper ref={WrapperRef}>
       <BuildingWrapper>
-        <img src={Background} alt={'img1'} className={`background`} />
-        <DarkBuilding className={`header-image dark-building`} />
+        <img
+          src={Background}
+          alt={'img1'}
+          className={`background`}
+          ref={starsRef}
+        />
+        <DarkBuilding className={`dark-building`} ref={darkBuildingRef} />
         <BlurEffect className={`header-image blur-effect`} />
-        <img src={BrightBuilding} alt={'img2'} className={'bright-building'} />
+        <img
+          src={BrightBuilding}
+          alt={'img2'}
+          className={`bright-building`}
+          ref={brightBuildingRef}
+        />
+        <Ground className={`ground`} ref={groundRef} />
         <div className={'logo'}>
           <Logo />
           <span
@@ -31,52 +89,77 @@ const ShowBuilding = () => {
 };
 
 const Wrapper = styled.div`
-  min-height: 720px;
+  width: var(--desktop-content);
   position: relative;
-  top: 0;
-  left: 0;
+  margin: -30px auto;
 `;
 
 const BuildingWrapper = styled.div`
+  position: relative;
+  width: 100%;
+  height: 720px;
+  display: flex;
+  justify-content: center;
+
   & > svg.header-image {
-    position: absolute;
+    position: fixed;
     user-select: none;
+    top: 0;
     left: 50%;
-    transform: translate(-50%);
+    transform: translateX(-50%);
+    margin: 0 auto;
   }
 
   & > img {
-    position: absolute;
+    position: fixed;
     user-select: none;
+  }
+
+  .background {
+    max-width: 1436px;
+    max-height: 1138px;
+    height: 100vh;
+    z-index: 0;
+    left: 50%;
+  }
+
+  .bright-building {
+    max-width: 500px;
+    max-height: 1138px;
+    height: 100vh;
+    z-index: 1;
+    top: 0;
+    left: 50%;
+  }
+
+  .ground {
+    width: 100vw;
+    position: fixed;
+    top: 80%;
+    z-index: 2;
     left: 50%;
     transform: translate(-50%);
   }
 
-  .background {
-    width: 1183px;
-    z-index: 0;
-  }
-
-  .bright-building {
-    width: 242px;
-    z-index: 1;
-    top: calc(26% - 20px);
-    left: calc(50% - 13px);
-  }
-
   .blur-effect {
+    height: 100vw;
     z-index: 2;
     top: 10%;
   }
 
   .dark-building {
-    width: 1183px;
+    max-width: 100%;
+    height: 100vh;
+    position: fixed;
+    top: 20%;
+    left: 50%;
+    transform: translateX(-50%);
     z-index: 3;
   }
 
   .logo {
     position: absolute;
-    bottom: calc(-20% - var(--gap-16));
+    top: calc(100% + var(--gap-16));
     left: 50%;
     transform: translateX(-50%);
     z-index: 4;

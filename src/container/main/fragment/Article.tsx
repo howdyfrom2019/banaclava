@@ -1,17 +1,20 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styled from '@emotion/styled';
 import NetflixDivider from '../../../assets/divider/netflix-backgorund.png';
 import BrowserDndTab from '../../../component/BrowserDndTab';
 import NewsBrowser from '../../../component/NewsBrowser';
+import { ReferenceProp } from './ShowBuilding';
 
 interface EpisodeType {
   isSelected: boolean;
 }
 
-const Article = () => {
+const Article: React.FC<ReferenceProp> = ({ callbackHeight }) => {
   const [selectedIndex, setSelectedIndex] = useState<number>(0);
   const selectedIndexList = useRef<number[]>([0]);
   const [render, setRender] = useState<boolean>(false);
+
+  const ref = useRef<HTMLDivElement>(null);
   const reRender = () => setRender((prev) => !prev);
   //TODO: Extract IndexList from NetflixEpisode Container and join with newsBrowser. adjust DND effect.
 
@@ -23,8 +26,13 @@ const Article = () => {
     }
   };
 
+  useEffect(() => {
+    if (!ref.current) return;
+    callbackHeight(ref.current.clientHeight);
+  }, []);
+
   return (
-    <Wrapper>
+    <Wrapper ref={ref}>
       <img src={NetflixDivider} alt={'divider'} />
       <div className={'background'} />
       <NetflixContainer>
