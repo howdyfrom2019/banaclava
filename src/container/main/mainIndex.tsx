@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styled from '@emotion/styled';
 import ThreeDCarousel from '../../component/ThreeDCarousel';
 import Bunny from '../../assets/bunny.png';
@@ -8,12 +8,13 @@ import Mouse from '../../assets/mouse.png';
 import Puppy from '../../assets/puppy.png';
 
 const MainIndex = () => {
+  const [picWidth, setPicWidth] = useState<number>(320);
   const NFTBunny = (
     <div>
       <img
         src={Bunny}
         alt={'example'}
-        style={{ objectFit: 'contain', width: 320 }}
+        style={{ objectFit: 'contain', width: '100%' }}
       />
     </div>
   );
@@ -23,7 +24,7 @@ const MainIndex = () => {
       <img
         src={Cat}
         alt={'example'}
-        style={{ objectFit: 'contain', width: 320 }}
+        style={{ objectFit: 'contain', width: '100%' }}
       />
     </div>
   );
@@ -33,7 +34,7 @@ const MainIndex = () => {
       <img
         src={Duck}
         alt={'example'}
-        style={{ objectFit: 'contain', width: 320 }}
+        style={{ objectFit: 'contain', width: '100%' }}
       />
     </div>
   );
@@ -43,7 +44,7 @@ const MainIndex = () => {
       <img
         src={Mouse}
         alt={'example'}
-        style={{ objectFit: 'contain', width: 320 }}
+        style={{ objectFit: 'contain', width: '100%' }}
       />
     </div>
   );
@@ -53,15 +54,27 @@ const MainIndex = () => {
       <img
         src={Puppy}
         alt={'example'}
-        style={{ objectFit: 'contain', width: 320 }}
+        style={{ objectFit: 'contain', width: '100%' }}
       />
     </div>
   );
+
+  const getBrowserWidth = () => {
+    const picsWidth: number = (320 / 1440) * window.innerWidth;
+    setPicWidth(picsWidth < 160 ? 160 : picsWidth);
+  };
+
+  useEffect(() => {
+    window.addEventListener('resize', getBrowserWidth);
+    return () => {
+      window.removeEventListener('resize', getBrowserWidth);
+    };
+  }, []);
   return (
     <Wrapper>
       <span className={`icy-justice-36`}>Coming Soon!</span>
       <ThreeDCarousel
-        itemProps={{ width: 320 }}
+        width={picWidth}
         elements={[NFTBunny, NFTCat, NFTDuck, NFTMouse, NFTPuppy]}
       />
       <span className={`sans-medium-16`}>
@@ -82,8 +95,9 @@ const Wrapper = styled.div`
   padding: 10%;
 
   .sans-medium-16 {
+    width: 80%;
     position: absolute;
-    top: calc(150% + 48px);
+    top: calc(100% + 64px);
     left: 50%;
     transform: translate(-50%);
   }

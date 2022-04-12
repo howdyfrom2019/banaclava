@@ -62,7 +62,7 @@ const Collection = () => {
     <Wrapper>
       <span className={'icy-justice-48'}>COLLECTION</span>
       <ThreeDCarousel
-        itemProps={{ width: 320 }}
+        width={320}
         elements={[NFTBunny, NFTCat, NFTDuck, NFTMouse, NFTPuppy]}
       />
     </Wrapper>
