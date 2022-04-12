@@ -96,8 +96,9 @@ const Wrapper = styled.div`
 
   .sans-medium-16 {
     width: 80%;
+    text-align: center;
     position: absolute;
-    top: calc(100% + 64px);
+    top: calc(100% + 96px);
     left: 50%;
     transform: translate(-50%);
   }
