@@ -23,6 +23,7 @@ html {
 
     /*define widths*/
     --desktop-content: 1196px;
+    --max-modal: 800px;
 
     /*define color theme*/
     --primary: #8364DB;
