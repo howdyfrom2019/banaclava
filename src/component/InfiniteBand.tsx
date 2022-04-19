@@ -1,9 +1,17 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import styled from '@emotion/styled';
+import { ReferenceProp } from '../container/main/fragment/ShowBuilding';
 
-const InfiniteBand = () => {
+const InfiniteBand: React.FC<ReferenceProp> = ({ callbackHeight }) => {
+  const WrapperRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!WrapperRef.current) return;
+    callbackHeight(WrapperRef.current.clientHeight);
+  }, []);
+
   return (
-    <Wrapper>
+    <Wrapper ref={WrapperRef}>
       <span className={`icy-justice-16 animation1`}>
         icy justices &nbsp;icy justices &nbsp;icy justices &nbsp;icy justices
         &nbsp;icy justices &nbsp;icy justices &nbsp;icy justices &nbsp;icy

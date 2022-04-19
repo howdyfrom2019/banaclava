@@ -31,6 +31,7 @@ html {
     --mint: #6EFFFF;
     --navy: #141551;
     --black: #02030B;
+    --light-black: #333333;
     --white: #ffffff;
 }
 
@@ -129,5 +130,11 @@ html {
 .icy-justice-16 {
     font-family: 'Icy Justices', serif;
     font-size: 16px;
+    color: var(--white);
+}
+
+.icy-justice-12 {
+    font-family: 'Icy Justices', serif;
+    font-size: 12px;
     color: var(--white);
 }

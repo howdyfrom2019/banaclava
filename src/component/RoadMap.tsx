@@ -5,15 +5,17 @@ import Wanted from '../assets/image/wanted.png';
 import Dao from '../assets/image/dao.png';
 import Profit from '../assets/image/profit.png';
 import { ReactComponent as BlueRose } from '../assets/icon/icon_rose.svg';
+import { ReferenceProp } from '../container/main/fragment/ShowBuilding';
 
 interface BarProps {
   isSelected?: boolean;
 }
 
-const RoadMap = () => {
+const RoadMap: React.FC<ReferenceProp> = ({ callbackHeight }) => {
   const [pageIndex, setPageIndex] = useState<number>(0);
   const [autoSliderSwitch, setAutoSliderSwitch] = useState<boolean>(true);
   const observeTarget = useRef<HTMLDivElement>(null);
+  const WrapperRef = useRef<HTMLDivElement>(null);
 
   const autoSlider = () => {
     setTimeout(() => {
@@ -21,6 +23,11 @@ const RoadMap = () => {
       if (pageIndex < 3) setPageIndex((prev) => prev + 1);
     }, 8000);
   };
+
+  useEffect(() => {
+    if (!WrapperRef.current) return;
+    callbackHeight(WrapperRef.current.clientHeight);
+  }, []);
 
   useEffect(() => {
     autoSliderSwitch && autoSlider();
@@ -117,7 +124,7 @@ const RoadMap = () => {
     </RoadMapDesc>
   );
   return (
-    <Wrapper>
+    <Wrapper ref={WrapperRef}>
       <RoadMapContainer ref={observeTarget}>
         {pageIndex === 0 && <img src={Recruit} alt={'roadmap1'} />}
         {pageIndex === 1 && <img src={Wanted} alt={'roadmap2'} />}

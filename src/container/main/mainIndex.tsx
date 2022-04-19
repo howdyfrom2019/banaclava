@@ -6,13 +6,16 @@ import Article from './fragment/Article';
 import Collection from './fragment/Collection';
 import InfiniteBand from '../../component/InfiniteBand';
 import RoadMap from '../../component/RoadMap';
+import Team from './fragment/Team';
 
 const MainIndex = () => {
   const [refHeights, setRefHeights] = useState<number[]>([]);
 
   const heightManager = (height: number, index: number) => {
+    console.log(height, index);
+    console.log(refHeights);
     refHeights[index] = height;
-    setRefHeights((prev) => [...prev]);
+    index === 5 && setRefHeights((prev) => [...prev]);
   };
 
   return (
@@ -28,9 +31,26 @@ const MainIndex = () => {
           heightManager(height, 1);
         }}
       />
-      <Collection />
-      <InfiniteBand />
-      <RoadMap />
+      <Collection
+        callbackHeight={(height) => {
+          heightManager(height, 2);
+        }}
+      />
+      <InfiniteBand
+        callbackHeight={(height) => {
+          heightManager(height, 3);
+        }}
+      />
+      <RoadMap
+        callbackHeight={(height) => {
+          heightManager(height, 4);
+        }}
+      />
+      <Team
+        callbackHeight={(height) => {
+          heightManager(height, 5);
+        }}
+      />
     </Wrapper>
   );
 };

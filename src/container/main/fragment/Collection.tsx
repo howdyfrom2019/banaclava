@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import styled from '@emotion/styled';
 import Bunny from '../../../assets/bunny.png';
 import Cat from '../../../assets/cat.png';
@@ -7,6 +7,7 @@ import Mouse from '../../../assets/mouse.png';
 import Puppy from '../../../assets/puppy.png';
 
 import ThreeDCarousel from '../../../component/ThreeDCarousel';
+import { ReferenceProp } from './ShowBuilding';
 
 const NFTBunny = (
   <div>
@@ -57,9 +58,15 @@ const NFTPuppy = (
     />
   </div>
 );
-const Collection = () => {
+const Collection: React.FC<ReferenceProp> = ({ callbackHeight }) => {
+  const WrapperRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (!WrapperRef.current) return;
+    callbackHeight(WrapperRef.current.clientHeight);
+  }, []);
+
   return (
-    <Wrapper>
+    <Wrapper ref={WrapperRef}>
       <span className={'icy-justice-48'}>COLLECTION</span>
       <ThreeDCarousel
         itemProps={{ width: 320 }}
