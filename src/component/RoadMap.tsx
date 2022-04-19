@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styled from '@emotion/styled';
 import Recruit from '../assets/image/recruit.png';
 import Wanted from '../assets/image/wanted.png';
@@ -12,6 +12,38 @@ interface BarProps {
 
 const RoadMap = () => {
   const [pageIndex, setPageIndex] = useState<number>(0);
+  const [autoSliderSwitch, setAutoSliderSwitch] = useState<boolean>(true);
+  const observeTarget = useRef<HTMLDivElement>(null);
+
+  const autoSlider = () => {
+    setTimeout(() => {
+      if (pageIndex >= 3) setPageIndex(0);
+      if (pageIndex < 3) setPageIndex((prev) => prev + 1);
+    }, 8000);
+  };
+
+  useEffect(() => {
+    autoSliderSwitch && autoSlider();
+    return;
+  }, [autoSliderSwitch, pageIndex]);
+
+  // const onIntersect = async (
+  //   entry: IntersectionObserverEntry[],
+  //   observer: IntersectionObserver,
+  // ) => {
+  //   if (entry[0].isIntersecting) {
+  //     observer.observe(entry[0].target);
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   if (!observeTarget.current) return;
+  //   const observer = new IntersectionObserver(onIntersect, { threshold: 0.5 });
+  //   observer.observe(observeTarget.current);
+  //   return () => {
+  //     observer.disconnect();
+  //   };
+  // }, []);
 
   const RoadMap1 = (
     <RoadMapDesc>
@@ -86,7 +118,7 @@ const RoadMap = () => {
   );
   return (
     <Wrapper>
-      <RoadMapContainer>
+      <RoadMapContainer ref={observeTarget}>
         {pageIndex === 0 && <img src={Recruit} alt={'roadmap1'} />}
         {pageIndex === 1 && <img src={Wanted} alt={'roadmap2'} />}
         {pageIndex === 2 && <img src={Dao} alt={'roadmap3'} />}
@@ -95,26 +127,34 @@ const RoadMap = () => {
           <Bar
             isSelected={pageIndex === 0}
             onMouseEnter={() => {
+              setAutoSliderSwitch(false);
               if (pageIndex !== 0) setPageIndex(0);
             }}
+            onMouseLeave={() => setAutoSliderSwitch(true)}
           />
           <Bar
             isSelected={pageIndex === 1}
             onMouseEnter={() => {
+              setAutoSliderSwitch(false);
               if (pageIndex !== 1) setPageIndex(1);
             }}
+            onMouseLeave={() => setAutoSliderSwitch(true)}
           />
           <Bar
             isSelected={pageIndex === 2}
             onMouseEnter={() => {
+              setAutoSliderSwitch(false);
               if (pageIndex !== 2) setPageIndex(2);
             }}
+            onMouseLeave={() => setAutoSliderSwitch(true)}
           />
           <Bar
             isSelected={pageIndex === 3}
             onMouseEnter={() => {
+              setAutoSliderSwitch(false);
               if (pageIndex !== 3) setPageIndex(3);
             }}
+            onMouseLeave={() => setAutoSliderSwitch(true)}
           />
         </BarContainer>
         {pageIndex === 0 && RoadMap1}

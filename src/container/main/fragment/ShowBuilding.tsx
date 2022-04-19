@@ -31,9 +31,11 @@ const ShowBuilding: React.FC<ReferenceProp> = ({ callbackHeight }) => {
     groundRef.current.style.transform = `translate3d(-50%, ${
       -scrollTop * 0.3
     }px, 0px)`;
+    brightBuildingRef.current.style.filter = `blur(${scrollTop * 0.01}px)`;
     darkBuildingRef.current.style.transform = `translate3d(-50%, ${
       -scrollTop * 0.3
     }px, 0px)`;
+    darkBuildingRef.current.style.filter = `blur(${scrollTop * 0.008}px)`;
     brightBuildingRef.current.style.transform = `translate3d(-50%, ${
       -scrollTop * 0.12
     }px, 0px)`;
@@ -121,6 +123,7 @@ const BuildingWrapper = styled.div`
     height: 100vh;
     z-index: 0;
     left: 50%;
+    transform: translate(-50%);
   }
 
   .bright-building {
@@ -130,6 +133,7 @@ const BuildingWrapper = styled.div`
     z-index: 1;
     top: 0;
     left: 50%;
+    transform: translate(-50%);
   }
 
   .ground {
