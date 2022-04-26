@@ -36,7 +36,7 @@ const Article: React.FC<ReferenceProp> = ({ callbackHeight }) => {
       <img src={NetflixDivider} alt={'divider'} />
       <div className={'background'} />
       <NetflixContainer>
-        <NetflixEpisode>
+        <NetflixEpisode className={'left'}>
           <span className={'icy-justice-16'}>story</span>
           <EpisodeItem
             isSelected={selectedIndex === 0}
@@ -93,6 +93,7 @@ const Article: React.FC<ReferenceProp> = ({ callbackHeight }) => {
             padding: 0,
             width: '100%',
           }}
+          className={'right'}
         >
           <NewsBrowserWrapper>
             <BrowserDndTab
@@ -140,12 +141,28 @@ const NetflixContainer = styled.div`
   gap: var(--gap-24);
   z-index: 5;
   max-height: 580px;
+
+  @media screen and (max-width: 1194px) {
+    width: 100%;
+  }
+
+  .left {
+    @media screen and (max-width: 1194px) {
+      width: 100%;
+    }
+  }
+
+  .right {
+    @media screen and (max-width: 1194px) {
+      display: none;
+    }
+  }
 `;
 
 const NetflixEpisode = styled.div`
   display: flex;
   flex-direction: column;
-  padding: var(--gap-48);
+  padding: var(--gap-48) 40px;
   gap: 28px;
   min-width: 40%;
   min-height: 482px;
@@ -162,6 +179,17 @@ const EpisodeItem = styled.div<EpisodeType>`
   filter: ${(props) => (props.isSelected ? 'opacity(1)' : 'opacity(0.4)')};
   transition: all 600ms cubic-bezier(0.99, 0.08, 0.17, 1);
   cursor: pointer;
+
+  @media screen and (max-width: 768px) {
+    //padding: 12px 16px;
+    gap: var(--gap-36);
+  }
+
+  .sans-medium-16 {
+    @media screen and (max-width: 768px) {
+      font-size: 12px;
+    }
+  }
 `;
 
 const NewsBrowserWrapper = styled.div`

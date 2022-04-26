@@ -3,6 +3,10 @@ html {
     background: var(--black);
 }
 
+::selection {
+    background: var(--primary);
+}
+
 :root {
     /*define gap size*/
     --gap-64: 64px;

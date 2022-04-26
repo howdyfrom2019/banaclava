@@ -5,13 +5,7 @@ interface ThreeDType {
   style?: CSSProperties;
   elements: JSX.Element[];
   align?: 'vertical' | 'horizontal';
-  itemProps: ItemProps;
-}
-
-interface ItemProps {
   width: number;
-  height?: number;
-  horizontal?: boolean;
 }
 
 interface CarouselItemProps {
@@ -23,7 +17,7 @@ const ThreeDCarousel: React.FC<ThreeDType> = ({
   style,
   elements,
   align = 'horizontal',
-  itemProps,
+  width,
 }) => {
   const [radius, setRadius] = useState<number>(0);
   const [timer, setTimer] = useState<number>(0);
@@ -47,9 +41,10 @@ const ThreeDCarousel: React.FC<ThreeDType> = ({
   };
 
   useEffect(() => {
-    setItemCount(elements.length);
-    setRadius(radiusCalculator(elements.length, itemProps.width));
-  }, [elements]);
+    console.log(width);
+    elements.length !== itemCount && setItemCount(elements.length);
+    setRadius(radiusCalculator(elements.length, width));
+  }, [elements, width]);
 
   useEffect(() => {
     if (itemCount === 0) return;
@@ -66,11 +61,7 @@ const ThreeDCarousel: React.FC<ThreeDType> = ({
 
   return (
     <Wrapper style={style}>
-      <ThreeDCarouselContainer
-        width={itemProps.width}
-        height={itemProps.height}
-        horizontal={align === 'horizontal'}
-      >
+      <ThreeDCarouselContainer width={width}>
         {elements.map((element, i) => (
           <CarouselItem
             angleY={((i + currentIndex) * -360) / itemCount}
@@ -102,15 +93,16 @@ const ThreeDCarousel: React.FC<ThreeDType> = ({
 };
 
 const Wrapper = styled.div`
+  width: 100%;
+  min-height: 160px;
   position: relative;
 `;
 
-const ThreeDCarouselContainer = styled.div<ItemProps>`
+const ThreeDCarouselContainer = styled.div<{ width: number }>`
   display: flex;
   width: 100%;
   transform-style: preserve-3d;
-  transform: ${(props) =>
-    props.horizontal ? 'rotateX(-10deg)' : 'rotateZ(90deg)'};
+  transform: rotateX(-10deg);
 
   .carousel-item {
     position: absolute;
@@ -118,9 +110,14 @@ const ThreeDCarouselContainer = styled.div<ItemProps>`
     top: var(--gap-48);
     filter: opacity(0.7);
     width: ${(props) => `${props.width}px`};
-    height: ${(props) => (props.height ? `${props.height}px` : 'auto')};
+    height: auto;
     transition: all 1s;
     border: 1px solid var(--white);
+    //
+    //@media screen and (max-width: 768px) {
+    //  width: 50%;
+    //  height: 50%;
+    //}
   }
 
   .center {

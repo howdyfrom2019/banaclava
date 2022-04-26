@@ -43,9 +43,11 @@ const Wrapper = styled.div`
   flex-direction: column;
   align-items: center;
   padding-top: 86px;
+  padding-bottom: 86px;
   gap: var(--gap-64);
   width: 100%;
-  height: 606px;
+  height: fit-content;
+  min-height: 606px;
   text-align: center;
   background: var(--black);
   z-index: 4;
@@ -56,6 +58,11 @@ const Wrapper = styled.div`
     justify-content: space-between;
     gap: var(--gap-24);
     flex-wrap: wrap;
+
+    @media screen and (max-width: 768px) {
+      width: calc(100% - 40px);
+      justify-content: center;
+    }
   }
 `;
 export default Team;

@@ -60,6 +60,10 @@ const Wrapper = styled.div`
   flex-direction: column;
   flex-wrap: nowrap;
   background: #000000;
+
+  //@media screen and (max-width: 768px) {
+  //  overflow-x: hidden;
+  //}
 `;
 
 export default MainIndex;

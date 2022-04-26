@@ -192,6 +192,11 @@ const RoadMapContainer = styled.div`
   gap: var(--gap-64);
   margin: 0 auto;
 
+  @media screen and (max-width: 768px) {
+    width: calc(100% - 40px);
+    align-self: center;
+  }
+
   & > img {
     width: 588px;
     height: 580px;
@@ -199,6 +204,11 @@ const RoadMapContainer = styled.div`
     background: var(--black);
     animation: show-opacity 1s linear;
     user-select: none;
+
+    @media screen and (max-width: 768px) {
+      width: 100%;
+      height: auto;
+    }
   }
 `;
 
@@ -232,6 +242,18 @@ const RoadMapDesc = styled.div`
   gap: var(--gap-64);
   max-width: 480px;
   animation: show-opacity 1s ease-in-out;
+  user-select: none;
+
+  @media screen and (max-width: 768px) {
+    max-width: none;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.5);
+  }
 
   & > svg {
     position: absolute;

@@ -31,52 +31,70 @@ const Navigation: React.FC<MoveProp> = ({ ScrollHeights }) => {
 
   return (
     <Wrapper>
-      <Logo
-        onClick={() => {
-          window.scrollTo({ top: 0, behavior: 'smooth' });
-        }}
-      />
-      <NavItems>
-        <span className={'icy-justice-16'} onClick={() => NavigatorHandler(0)}>
-          story
-        </span>
-        <span className={'icy-justice-16'} onClick={() => NavigatorHandler(1)}>
-          collection
-        </span>
-        <span className={'icy-justice-16'} onClick={() => NavigatorHandler(2)}>
-          roadmap
-        </span>
-        <span className={'icy-justice-16'} onClick={() => NavigatorHandler(3)}>
-          team
-        </span>
-        <span className={'icy-justice-16'} onClick={() => NavigatorHandler(4)}>
-          faq
-        </span>
-      </NavItems>
-      <MobileNavItems
-        className={'burger'}
-        onClick={() => setShowModal((prev) => !prev)}
-      >
-        <span className={`line ${showModal && `x`}`} />
-        <span className={`line ${showModal && `y`}`} />
-        <span className={`line ${showModal && `z`}`} />
-      </MobileNavItems>
-      <MobileNavigation isVisible={showModal}>
-        <div className={'left'}>
-          <div>
-            <Twitter />
-            <Discord />
-            <Github />
-            <Instagram />
+      <div className={'contents-wrapper'}>
+        <Logo
+          className={'logo'}
+          onClick={() => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          }}
+        />
+        <NavItems>
+          <span
+            className={'icy-justice-16'}
+            onClick={() => NavigatorHandler(0)}
+          >
+            story
+          </span>
+          <span
+            className={'icy-justice-16'}
+            onClick={() => NavigatorHandler(1)}
+          >
+            collection
+          </span>
+          <span
+            className={'icy-justice-16'}
+            onClick={() => NavigatorHandler(2)}
+          >
+            roadmap
+          </span>
+          <span
+            className={'icy-justice-16'}
+            onClick={() => NavigatorHandler(4)}
+          >
+            team
+          </span>
+          <span
+            className={'icy-justice-16'}
+            onClick={() => NavigatorHandler(5)}
+          >
+            faq
+          </span>
+        </NavItems>
+        <MobileNavItems
+          className={'burger'}
+          onClick={() => setShowModal((prev) => !prev)}
+        >
+          <span className={`line ${showModal && `x`}`} />
+          <span className={`line ${showModal && `y`}`} />
+          <span className={`line ${showModal && `z`}`} />
+        </MobileNavItems>
+        <MobileNavigation isVisible={showModal}>
+          <div className={'left'}>
+            <div>
+              <Twitter />
+              <Discord />
+              <Github />
+              <Instagram />
+            </div>
           </div>
-        </div>
-        <div className={'menu'}>
-          <MobileText>Story</MobileText>
-          <MobileText>Collection</MobileText>
-          <MobileText>Roadmap</MobileText>
-          <MobileText>Team</MobileText>
-        </div>
-      </MobileNavigation>
+          <div className={'menu'}>
+            <MobileText>Story</MobileText>
+            <MobileText>Collection</MobileText>
+            <MobileText>Roadmap</MobileText>
+            <MobileText>Team</MobileText>
+          </div>
+        </MobileNavigation>
+      </div>
     </Wrapper>
   );
 };
@@ -84,25 +102,36 @@ const Navigation: React.FC<MoveProp> = ({ ScrollHeights }) => {
 const Wrapper = styled.div`
   position: sticky;
   left: 0;
-  top: var(--gap-48);
-  max-width: 100vw;
-  width: var(--desktop-content);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: var(--gap-64);
-  margin: 0 auto;
+  top: 0;
   z-index: 10;
+  background: rgba(0, 0, 0, 0.8);
 
-  & > svg {
+  & > div.contents-wrapper {
+    width: var(--desktop-content);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--gap-64);
+    padding: 30px 0;
+    margin: 0 auto;
+
+    @media screen and (max-width: 1196px) {
+      width: auto;
+      margin: 0 40px;
+    }
+
+    @media screen and (max-width: 768px) {
+      margin: 0 20px;
+    }
+  }
+
+  .logo {
     cursor: pointer;
+    z-index: 1001;
   }
 
   @media screen and (max-width: 768px) {
-    width: calc(100% - 80px);
-
-    & > svg {
-      z-index: 1001;
+    .logo {
       fill: var(--white) !important;
     }
   }
@@ -136,12 +165,12 @@ const MobileNavItems = styled.div`
   }
 
   .x {
-    width: 64px;
+    width: 58px;
     transform: rotate(45deg);
   }
 
   .z {
-    width: 64px;
+    width: 58px;
     margin-top: -14px;
     transform: rotate(135deg);
   }

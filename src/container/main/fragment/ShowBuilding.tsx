@@ -93,7 +93,11 @@ const ShowBuilding: React.FC<ReferenceProp> = ({ callbackHeight }) => {
 const Wrapper = styled.div`
   width: var(--desktop-content);
   position: relative;
-  margin: -30px auto;
+  margin: -66px auto;
+
+  @media screen and (max-width: 1196px) {
+    width: 100%;
+  }
 `;
 
 const BuildingWrapper = styled.div`
@@ -145,14 +149,20 @@ const BuildingWrapper = styled.div`
     transform: translate(-50%);
   }
 
-  .blur-effect {
+  .blur-effect.header-image {
     height: 100vw;
     z-index: 2;
     top: 10%;
+
+    @media screen and (max-width: 904px) {
+      width: 100%;
+      top: calc(20%);
+    }
   }
 
   .dark-building {
     max-width: 100%;
+    min-width: 904px;
     height: 100vh;
     position: fixed;
     top: 20%;
